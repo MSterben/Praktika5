@@ -47,9 +47,8 @@ spec:
     }
 
     environment {
-        // Поміняйте APP_NAME та DOCKER_IMAGE_NAME на ваше імʼя та прізвище, відповідно.
-        APP_NAME = 'your_app_name'
-        DOCKER_IMAGE_NAME = 'your_docker_image_name'
+        APP_NAME = 'drehalo_mykola'
+        DOCKER_IMAGE_NAME = 'drehalo_mykola'
     }
 
     stages {
@@ -57,15 +56,13 @@ spec:
             steps {
                 container(name: 'jnlp', shell: '/bin/bash') {
                     echo 'Pulling new changes'
-                    // Крок клонування репозиторію
-                    // TODO: ваш код з лабораторної № 4
+                    checkout scm
                 }
             }
         }
         stage('Compile') {
             steps {
                 container(name: 'golang', shell: '/bin/bash') {
-                    // Компіляція проекту на мові Go. Всі ці флаги необхідні для запуску на пустій файловій системі образу scratch :)
                     sh "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOFLAGS=-buildvcs=false go build -a -ldflags '-w -s -extldflags \"-static\"' -o ${APP_NAME} ."
                 }
             }
@@ -75,13 +72,11 @@ spec:
             steps {
                 container(name: 'golang', shell: '/bin/bash') {
                     echo 'Testing the application'
-                    // Виконання юніт-тестів.
-                    // TODO: ваш код з лабораторної № 4
+                    sh 'go test ./...'
                 }
             }
         }
         stage('Build image') {
-            // Не потрібно змінювати. Цей код працюватиме, якщо у вас правильний Dockerfile.
             environment {
                 PATH = "/busybox:/kaniko:$PATH"
             }
@@ -102,6 +97,11 @@ spec:
                     // TODO: Підказка: bitnami/kubectl має доступну утиліту 'sed'
                     // TODO: Але ви можете використовувати будь-яке інше рішення (Kustomize, тощо)
                     // TODO: По-друге: використовуйте kubectl apply з контейнера kubectl щоб застосувати маніфести з директорії k8s
+                    // Підставлення значень змінних DOCKER_IMAGE_NAME і BUILD_NUMBER у маніфест
+                    sh "sed -i 's|{{DOCKER_IMAGE_NAME}}|${DOCKER_IMAGE_NAME}|' k8s/deployment.yaml"
+                    sh "sed -i 's|{{BUILD_NUMBER}}|${BUILD_NUMBER}|' k8s/deployment.yaml"
+                    // Застосування маніфесту
+                    sh 'kubectl apply -f k8s/'
                 }
             }
         }
@@ -132,6 +132,12 @@ spec:
                 // TODO: За допомогою контейнера ubuntu встановіть `curl`
                 // TODO: Використайте curl, щоб зробити запит на http://labfive:80
                 // TODO: Можливо, вам доведеться почекати приблизно 10 секунд, поки все буде розгорнуто вперше
+                // Встановлення curl в контейнері Ubuntu
+                sh 'apt-get update && apt-get install -y curl'
+                // Очікування, щоб дати час для розгортання
+                sh 'sleep 10'
+                // Запит за допомогою curl
+                sh 'curl http://labfive:80'
             }
         }
     }

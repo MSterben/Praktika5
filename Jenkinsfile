@@ -101,7 +101,7 @@ spec:
                     sh "sed -i 's|{{DOCKER_IMAGE_NAME}}|${DOCKER_IMAGE_NAME}|' k8s/deployment.yaml"
                     sh "sed -i 's|{{BUILD_NUMBER}}|${BUILD_NUMBER}|' k8s/deployment.yaml"
                     // Застосування маніфесту
-                    sh 'microk8s kubectl apply -f k8s/'
+                    sh 'kubectl apply -f k8s/'
                 }
             }
         }

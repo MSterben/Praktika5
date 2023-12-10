@@ -2,4 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: labfive
-# TODO: Ваш код. Переконайтеся, що Service відкриває порт 80
+spec:
+  selector:
+    app: your-app  # Повинно відповідати значенню matchLabels в Deployment
+  ports:
+    - protocol: TCP
+      port: 80  # Порт, на який відкривається сервіс
+      targetPort: 80  # Порт, на якому працює додаток в контейнері
+  type: ClusterIP  # Тип сервісу (може бути NodePort, LoadBalancer і т. д.)

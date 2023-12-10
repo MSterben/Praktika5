@@ -47,8 +47,8 @@ spec:
     }
 
     environment {
-        APP_NAME = 'dsterben'
-        DOCKER_IMAGE_NAME = 'dsterben'
+        APP_NAME = 'drehalo_mykola'
+        DOCKER_IMAGE_NAME = 'drehalo_mykola'
     }
 
     stages {

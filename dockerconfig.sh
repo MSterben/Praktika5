@@ -24,7 +24,7 @@ while getopts ":u:p:" option; do
 done
 
 if [[ -z $DOCKER_USERNAME || -z $DOCKER_PASSWORD ]]; then
-  Help
+  Help 
   exit
 fi
 
@@ -38,7 +38,7 @@ CREDENTIALS=`cat <<EOF | base64 | tr -d '\n\r'
 }
 EOF`
 
-cat <<EOF | kubectl apply -f -
+cat <<EOF | microk8s kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:

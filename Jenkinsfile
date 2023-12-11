@@ -82,9 +82,9 @@ spec:
             }
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
-                    // sh '''#!/busybox/sh
-                    // /kaniko/executor --dockerfile="$(pwd)/Dockerfile" --context="dir:///$(pwd)" --build-arg "APP_NAME=${APP_NAME}" --destination ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
-                    // '''
+                    sh '''#!/busybox/sh
+                    /kaniko/executor --dockerfile="$(pwd)/Dockerfile" --context="dir:///$(pwd)" --build-arg "APP_NAME=${APP_NAME}" --destination ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                    '''
                 }
             }
         }
@@ -135,7 +135,7 @@ spec:
                 // Встановлення curl в контейнері Ubuntu
                 // Очікування, щоб дати час для розгортання
                 // Запит за допомогою curl
-                // sh "apt-get update && apt-get install -y curl"
+                sh "apt-get update && apt-get install -y curl"
                 sh "curl http://labfive:80"
             }
         }

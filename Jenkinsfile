@@ -48,7 +48,7 @@ spec:
 
     environment {
         APP_NAME = 'drehalo_mykola'
-        DOCKER_IMAGE_NAME = 'drehalo_mykola'
+        DOCKER_IMAGE_NAME = 'drehalo_mykola/example'
     }
 
     stages {
@@ -128,15 +128,19 @@ spec:
                 }
             }
             steps {
-                echo 'Testing the deployemnt with curl'
+                container(name: 'ubuntu', shell: '/bin/bash') {
+                    echo 'Testing the deployemnt with curl'
+                    sh "sudo apt-get update && sudo apt-get install -y curl"
+                    sh "curl http://labfive:80"
+                }
+                
                 // TODO: За допомогою контейнера ubuntu встановіть `curl`
                 // TODO: Використайте curl, щоб зробити запит на http://labfive:80
                 // TODO: Можливо, вам доведеться почекати приблизно 10 секунд, поки все буде розгорнуто вперше
                 // Встановлення curl в контейнері Ubuntu
                 // Очікування, щоб дати час для розгортання
                 // Запит за допомогою curl
-                sh "apt-get update && apt-get install -y curl"
-                sh "curl http://labfive:80"
+
             }
         }
     }

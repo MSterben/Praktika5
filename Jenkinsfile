@@ -82,7 +82,7 @@ spec:
             }
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
-                    // sh '''#!/busybox/sh
+                    // sh '''#!/busybox/shdckr_pat_gGJgPKaDH-jcsPJORNz0l-WPJu8
                     // /kaniko/executor --dockerfile="$(pwd)/Dockerfile" --context="dir:///$(pwd)" --build-arg "APP_NAME=${APP_NAME}" --destination ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                     // '''
                 }
@@ -130,7 +130,7 @@ spec:
             steps {
                 container(name: 'ubuntu', shell: '/bin/bash') {
                     echo 'Testing the deployemnt with curl'
-                    sh "sudo apt-get update && sudo apt-get install -y curl"
+                    sh "apt-get update && apt-get install -y curl"
                     sh "curl http://labfive:80"
                 }
                 

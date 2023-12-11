@@ -31,7 +31,7 @@ fi
 CREDENTIALS=`cat <<EOF | base64 | tr -d '\n\r'
 {
   "auths": {
-    "https://index.docker.io/v1/": {
+    "https://index.docker.io/v2/": {
       "auth": "$(echo -n ${DOCKER_USERNAME}:${DOCKER_PASSWORD} | base64)"
     }
   }

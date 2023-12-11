@@ -133,9 +133,8 @@ spec:
                 // TODO: Використайте curl, щоб зробити запит на http://labfive:80
                 // TODO: Можливо, вам доведеться почекати приблизно 10 секунд, поки все буде розгорнуто вперше
                 // Встановлення curl в контейнері Ubuntu
-                sh 'apt-get update && apt-get install -y curl'
+                sh 'sudo apt-get update && apt-get install -y curl'
                 // Очікування, щоб дати час для розгортання
-                sh 'sleep 10'
                 // Запит за допомогою curl
                 sh 'curl http://labfive:80'
             }

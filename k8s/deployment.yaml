@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: your-app-deployment
+  name: labfive-deployment
 spec:
-  replicas: 3  # Кількість реплік додатку
+  replicas: 3  # Adjust the number of replicas as needed
   selector:
     matchLabels:
-      app: your-app
+      app: labfive
   template:
     metadata:
       labels:
-        app: your-app
+        app: labfive
     spec:
       containers:
-      - name: your-app
-        image: your-registry/your-app:${TAG}  # Змінна TAG буде підставлена при деплої нової версії
+      - name: labfive-container
+        image: drehalo_mykola/example:${BUILD_NUMBER}  # Using the BUILD_NUMBER as the image tag
         ports:
-        - containerPort: 80  # Порт, на якому працює додаток
+        - containerPort: 80

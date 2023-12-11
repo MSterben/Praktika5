@@ -4,9 +4,9 @@ metadata:
   name: labfive
 spec:
   selector:
-    app: your-app  # Повинно відповідати значенню matchLabels в Deployment
+    app: labfive
   ports:
     - protocol: TCP
-      port: 80  # Порт, на який відкривається сервіс
-      targetPort: 80  # Порт, на якому працює додаток в контейнері
-  type: ClusterIP  # Тип сервісу (може бути NodePort, LoadBalancer і т. д.)
+      port: 80
+      targetPort: 80
+  type: ClusterIP  # Change the type if needed (NodePort, LoadBalancer, etc.)

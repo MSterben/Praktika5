@@ -131,7 +131,7 @@ spec:
                 container(name: 'ubuntu', shell: '/bin/bash') {
                     echo 'Testing the deployemnt with curl'
                     sh "apt-get update && apt-get install -y curl"
-                    sh "curl http://127.0.0.53:80"
+                    sh "curl http://labfive:80"
                 }
                 
                 // TODO: За допомогою контейнера ubuntu встановіть `curl`

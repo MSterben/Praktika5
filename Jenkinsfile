@@ -105,9 +105,7 @@ spec:
                     echo 'Deploying to Kubernetes'
 
                     // Install envsubst
-                    script {
                         sh 'apt-get update && apt-get install -y gettext-base'
-                    }
 
                     // Define environment variables for substitution
                     script {
@@ -116,9 +114,7 @@ spec:
                     }
 
                     // Use envsubst to substitute values in the Deployment file
-                    script {
                         sh "envsubst < path/to/deployment.yaml | kubectl apply -f -"
-                    }
                 }
             }
         }

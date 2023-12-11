@@ -98,8 +98,9 @@ spec:
                     // TODO: Але ви можете використовувати будь-яке інше рішення (Kustomize, тощо)
                     // TODO: По-друге: використовуйте kubectl apply з контейнера kubectl щоб застосувати маніфести з директорії k8s
                     // Підставлення значень змінних DOCKER_IMAGE_NAME і BUILD_NUMBER у маніфест
-                    sh "sed -i 's|{{DOCKER_IMAGE_NAME}}|${DOCKER_IMAGE_NAME}|' k8s/deployment.yaml"
-                    sh "sed -i 's|{{BUILD_NUMBER}}|${BUILD_NUMBER}|' k8s/deployment.yaml"
+                    envsubst < k8s/deployment.yaml > k8s/deployment.yaml
+                    // sh "sed -i 's|{{DOCKER_IMAGE_NAME}}|${DOCKER_IMAGE_NAME}|' k8s/deployment.yaml"
+                    // sh "sed -i 's|{{BUILD_NUMBER}}|${BUILD_NUMBER}|' k8s/deployment.yaml"
                     // Застосування маніфесту
                     sh 'kubectl apply -f k8s/'
                 }

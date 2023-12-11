@@ -16,4 +16,4 @@ spec:
       - name: labfive-container
         image: ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}  # Using the BUILD_NUMBER as the image tag
         ports:
-        - containerPort: 80
+        - containerPort: 8080

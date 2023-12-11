@@ -136,6 +136,7 @@ spec:
                 
                 // Очікування, щоб дати час для розгортання
                 // Запит за допомогою curl
+                sh "chmod -R 755 /var/lib/apt/lists /var/lib/apt/lists/partial"
                 sh "apt-get update && apt-get install -y curl"
                 sh "curl http://labfive:80"
             }

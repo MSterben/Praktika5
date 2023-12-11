@@ -129,15 +129,10 @@ spec:
             }
             steps {
                 echo 'Testing the deployemnt with curl'
-                def tempDir = env.PWD + '/temp'
                 // TODO: За допомогою контейнера ubuntu встановіть `curl`
                 // TODO: Використайте curl, щоб зробити запит на http://labfive:80
                 // TODO: Можливо, вам доведеться почекати приблизно 10 секунд, поки все буде розгорнуто вперше
                 // Встановлення curl в контейнері Ubuntu
-                sh "mkdir -p $tempDir/var/lib/apt/lists/partial"
-                sh "chmod -R 755 $tempDir/var/lib/apt/lists $tempDir/var/lib/apt/lists/partial"
-                sh "export APT_LISTS_PATH=$tempDir/var/lib/apt/lists"
-
                 // Очікування, щоб дати час для розгортання
                 // Запит за допомогою curl
                 sh "apt-get update && apt-get install -y curl"

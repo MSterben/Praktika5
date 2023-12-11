@@ -82,9 +82,9 @@ spec:
             }
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
-                    // sh '''#!/busybox/sh
-                    // /kaniko/executor --dockerfile="$(pwd)/Dockerfile" --context="dir:///$(pwd)" --build-arg "APP_NAME=${APP_NAME}" --destination ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
-                    // '''
+                    sh '''#!/busybox/sh
+                    /kaniko/executor --dockerfile="$(pwd)/Dockerfile" --context="dir:///$(pwd)" --build-arg "APP_NAME=${APP_NAME}" --destination ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                    '''
                 }
             }
         }

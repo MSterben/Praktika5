@@ -92,16 +92,33 @@ spec:
             steps {
                 container(name: 'kubectl', shell: '/bin/bash') {
                     echo 'Deploying to Kubernetes'
-                    // TODO: Потрібно зробити дві речі
-                    // TODO: По-перше: якимось чином за допомогою bash підставте значення змінних DOCKER_IMAGE_NAME і BUILD_NUMBER у свій Deployment.
-                    // TODO: Підказка: bitnami/kubectl має доступну утиліту 'sed'
-                    // TODO: Але ви можете використовувати будь-яке інше рішення (Kustomize, тощо)
-                    // TODO: По-друге: використовуйте kubectl apply з контейнера kubectl щоб застосувати маніфести з директорії k8s
-                    // Підставлення значень змінних DOCKER_IMAGE_NAME і BUILD_NUMBER у маніфест
-                    sh "sed -i 's|DOCKER_IMAGE_NAME|${DOCKER_IMAGE_NAME}|' k8s/deployment.yaml"
-                    sh "sed -i 's|BUILD_NUMBER|${BUILD_NUMBER}|' k8s/deployment.yaml"
-                    // Застосування маніфесту
-                    sh 'kubectl apply -f k8s/'
+                    // // TODO: Потрібно зробити дві речі
+                    // // TODO: По-перше: якимось чином за допомогою bash підставте значення змінних DOCKER_IMAGE_NAME і BUILD_NUMBER у свій Deployment.
+                    // // TODO: Підказка: bitnami/kubectl має доступну утиліту 'sed'
+                    // // TODO: Але ви можете використовувати будь-яке інше рішення (Kustomize, тощо)
+                    // // TODO: По-друге: використовуйте kubectl apply з контейнера kubectl щоб застосувати маніфести з директорії k8s
+                    // // Підставлення значень змінних DOCKER_IMAGE_NAME і BUILD_NUMBER у маніфест
+                    // sh "sed -i 's|DOCKER_IMAGE_NAME|${DOCKER_IMAGE_NAME}|' k8s/deployment.yaml"
+                    // sh "sed -i 's|BUILD_NUMBER|${BUILD_NUMBER}|' k8s/deployment.yaml"
+                    // // Застосування маніфесту
+                    // sh 'kubectl apply -f k8s/'
+                    echo 'Deploying to Kubernetes'
+
+                    // Install envsubst
+                    script {
+                        sh 'apt-get update && apt-get install -y gettext-base'
+                    }
+
+                    // Define environment variables for substitution
+                    script {
+                        env.DOCKER_IMAGE_NAME = sh(script: 'echo $DOCKER_IMAGE_NAME', returnStdout: true).trim()
+                        env.BUILD_NUMBER = sh(script: 'echo $BUILD_NUMBER', returnStdout: true).trim()
+                    }
+
+                    // Use envsubst to substitute values in the Deployment file
+                    script {
+                        sh "envsubst < path/to/deployment.yaml | kubectl apply -f -"
+                    }
                 }
             }
         }

@@ -135,7 +135,7 @@ spec:
                 // Встановлення curl в контейнері Ubuntu
                 // Очікування, щоб дати час для розгортання
                 // Запит за допомогою curl
-                sh "apt-get update && apt-get install -y curl"
+                // sh "apt-get update && apt-get install -y curl"
                 sh "curl http://labfive:80"
             }
         }

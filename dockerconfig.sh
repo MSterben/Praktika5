@@ -24,14 +24,14 @@ while getopts ":u:p:" option; do
 done
 
 if [[ -z $DOCKER_USERNAME || -z $DOCKER_PASSWORD ]]; then
-  Help 
+  Help
   exit
 fi
 
 CREDENTIALS=`cat <<EOF | base64 | tr -d '\n\r'
 {
   "auths": {
-    "https://index.docker.io/v2/": {
+    "https://index.docker.io/v1/": {
       "auth": "$(echo -n ${DOCKER_USERNAME}:${DOCKER_PASSWORD} | base64)"
     }
   }

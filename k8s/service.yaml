@@ -3,10 +3,8 @@ kind: Service
 metadata:
   name: labfive
 spec:
-  selector:
-    app: labfive
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
-  type: ClusterIP  # Change the type if needed (NodePort, LoadBalancer, etc.)
+  

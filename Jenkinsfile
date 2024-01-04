@@ -100,7 +100,7 @@ spec:
                     // Підставлення значень змінних DOCKER_IMAGE_NAME і BUILD_NUMBER у маніфест
                     sh "sed -i.bak -e 's@DOCKER_IMAGE_NAME@${DOCKER_IMAGE_NAME}@g' -e 's@BUILD_NUMBER@${BUILD_NUMBER}@g' **/deployment.yaml"
                     // Застосування маніфесту
-                    sh 'kubectl apply -f k8s/'
+                    sh "kubectl apply -f k8s"
                 }
             }
         }
